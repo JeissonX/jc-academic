@@ -192,36 +192,6 @@ const JC = {
     }
   ],
 
-  testimonios: [
-    {
-      iniciales: "M.R.",
-      nombre: "M. Rodríguez",
-      programa: "Maestría en Administración de Empresas (MBA)",
-      institucion: "Universidad Nacional de Colombia",
-      calificacion: 5.0,
-      resultado: "Aprobado con mención meritoria",
-      texto: "Trabajo 10 horas diarias en una multinacional y el marco metodológico de mi tesis estaba estancado hace 4 meses. En 12 días estructuraron los instrumentos y el reporte Turnitin arrojó 3.4% de similitud. Mi director aprobó el capítulo sin observaciones de fondo."
-    },
-    {
-      iniciales: "L.H.",
-      nombre: "L. Herrera",
-      programa: "Ingeniería Industrial (Décimo semestre)",
-      institucion: "Universidad del Valle",
-      calificacion: 5.0,
-      resultado: "Entrega radicada a las 6:45 AM",
-      texto: "Tenía que procesar una muestra de 480 encuestas en SPSS para un proyecto de grado con fecha límite un lunes a las 7:00 AM. El análisis llegó el domingo en la noche con tablas formateadas en APA 7ma e interpretación rigurosa. Me salvó el semestre."
-    },
-    {
-      iniciales: "C.M.",
-      nombre: "C. Martínez",
-      programa: "Especialización en Derecho Laboral y Seguridad Social",
-      institucion: "Pontificia Universidad Javeriana",
-      calificacion: 4.9,
-      resultado: "Publicación recomendada",
-      texto: "El ensayo requería fuentes primarias indexadas en SciELO y jurisprudencia reciente de la Corte Constitucional con citas en Chicago. La coherencia argumentativa fue impecable y el docente felicitó la solidez bibliográfica del texto."
-    }
-  ],
-
   faqs: [
     {
       id: "faq-turnitin",
