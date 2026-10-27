@@ -5,7 +5,9 @@
 const JC = {
   whatsapp: "573223876905",
   whatsappFormato: "+57 322 387 6905",
-  correo: "contacto@jcacademic.co",
+  correo: "academyasistenciajc@gmail.com",
+  email: "academyasistenciajc@gmail.com",
+  emailDisplay: "academyasistenciajc@gmail.com",
   horario: "Lunes a Sábado: 7:00 AM – 8:00 PM (Hora Colombia)",
 
   servicios: [

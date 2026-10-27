@@ -35,6 +35,8 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -44,7 +46,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+  max-width: 100%;
   overflow-x: hidden;
+  position: relative;
 }
 
 /* ── Scrollbars personalizadas ── */
@@ -446,9 +450,17 @@ details.faq-native[open] {
   gap: 10px;
 }
 
+@media (max-width: 640px) {
+  .modal-container {
+    padding: 20px 16px;
+    margin: 12px;
+    max-height: 90vh;
+  }
+}
+
 @media (max-width: 1023px) {
   body {
-    padding-bottom: 64px;
+    padding-bottom: 96px; /* Holgura de 6rem para sticky bar y botón flotante */
   }
 }
 
