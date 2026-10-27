@@ -42,7 +42,7 @@ function obtenerConfigExtension(tipoNombre) {
       permiteGuion: false
     };
   }
-  if (norm.includes('diapositiva') || norm.includes('defensa') || norm.includes('presentac')) {
+  if (norm.includes('diapositiva') || norm.includes('defensa') || norm.includes('sustentac') || norm.includes('presentac')) {
     return data.tiposExtension?.diapositivas || {
       label: "Número de láminas / diapositivas",
       placeholder: "Ej: 15 láminas de presentación",
@@ -58,17 +58,15 @@ function obtenerConfigExtension(tipoNombre) {
   };
 }
 
-/* ── 1. Inicialización del Cotizador Interactivo ── */
+/* ── 1. Inicialización Defensiva del Cotizador Interactivo ── */
 function initCotizador() {
   const selTipo = document.getElementById('cot-tipo');
-  const selNivel = document.getElementById('cot-nivel');
   const selArea = document.getElementById('cot-area');
   const selPlazo = document.getElementById('cot-plazo');
   const inpExtension = document.getElementById('cot-extension');
   const lblExtension = document.getElementById('cot-extension-label');
   const wrapGuion = document.getElementById('cot-guion-wrap');
   const chkGuion = document.getElementById('cot-guion');
-  const txtNotas = document.getElementById('cot-notas');
   const boxPreview = document.getElementById('cot-preview');
   const btnEnviar = document.getElementById('cot-enviar');
 
@@ -81,16 +79,6 @@ function initCotizador() {
       opt.value = s.titulo;
       opt.textContent = s.titulo;
       selTipo.appendChild(opt);
-    });
-  }
-
-  // Poblar select de niveles académicos
-  if (data.niveles && selNivel && selNivel.options.length <= 1) {
-    data.niveles.forEach(n => {
-      const opt = document.createElement('option');
-      opt.value = n;
-      opt.textContent = n;
-      selNivel.appendChild(opt);
     });
   }
 
@@ -116,11 +104,11 @@ function initCotizador() {
 
   // Actualizar etiqueta, placeholder y opción de guion según el tipo seleccionado
   function actualizarCamposExtension() {
-    const config = obtenerConfigExtension(selTipo.value);
-    if (lblExtension) {
+    const config = obtenerConfigExtension(selTipo ? selTipo.value : '');
+    if (lblExtension && config.label) {
       lblExtension.textContent = config.label;
     }
-    if (inpExtension) {
+    if (inpExtension && config.placeholder) {
       inpExtension.placeholder = config.placeholder;
       inpExtension.setAttribute('aria-label', config.label);
     }
@@ -138,18 +126,15 @@ function initCotizador() {
   function generarMensaje() {
     const tipo = (selTipo && selTipo.value) ? selTipo.value : 'Por definir';
     const area = (selArea && selArea.value) ? selArea.value : 'Por definir';
-    const nivel = (selNivel && selNivel.value) ? ` (${selNivel.value})` : '';
     const plazo = (selPlazo && selPlazo.value) ? selPlazo.value : 'Normal (15+ días)';
     
     let extension = (inpExtension && inpExtension.value.trim()) ? inpExtension.value.trim() : 'Por coordinar';
     if (chkGuion && wrapGuion && !wrapGuion.classList.contains('hidden') && chkGuion.checked) {
-      extension += ' + Guion de exposición incluido';
+      extension += ' + Guion de sustentación incluido';
     }
 
-    const notas = (txtNotas && txtNotas.value.trim()) ? txtNotas.value.trim() : 'Sin observaciones adicionales previas';
-
     return [
-      `👋 Hola JC Academic, requiero cotizar un trabajo: ${tipo} | Área: ${area}${nivel} | Extensión: ${extension} | Plazo: ${plazo} | Detalles: ${notas}`,
+      `👋 Hola JC Academic, requiero cotizar un trabajo: ${tipo} | Área: ${area} | Extensión: ${extension} | Plazo: ${plazo}`,
       '',
       '¿Podrían confirmarme disponibilidad del especialista y presupuesto estimado?'
     ].join('\n');
@@ -162,25 +147,25 @@ function initCotizador() {
     }
   }
 
-  // Escuchador para cambio de tipo de trabajo (actualiza placeholder/labels dinámicamente)
+  // Escuchador seguro para cambio de tipo de encargo
   selTipo.addEventListener('change', () => {
     actualizarCamposExtension();
     refrescarPreview();
   });
 
-  // Escuchadores de eventos para formulario reactivo
-  [selTipo, selNivel, selArea, selPlazo, inpExtension, txtNotas, chkGuion].forEach(control => {
+  // Escuchadores de eventos para controles reactivos
+  [selTipo, selArea, selPlazo, inpExtension, chkGuion].forEach(control => {
     if (control) {
       control.addEventListener('change', refrescarPreview);
       control.addEventListener('input', refrescarPreview);
     }
   });
 
-  // Inicialización de campos y preview
+  // Inicialización defensiva
   actualizarCamposExtension();
   refrescarPreview();
 
-  // Envío del cotizador a WhatsApp
+  // Envío seguro a WhatsApp
   if (btnEnviar) {
     btnEnviar.addEventListener('click', (e) => {
       e.preventDefault();
@@ -193,51 +178,30 @@ function initCotizador() {
 /* ── 2. Botones de WhatsApp Rápido (Hero, Cards, Sticky Bar) ── */
 function initBotonesWhatsApp() {
   document.querySelectorAll('[data-wa-quick]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const customMsg = btn.getAttribute('data-wa-mensaje') || 
-        '👋 Hola, JC Academic. Me gustaría recibir asesoría académica especializada en Colombia.';
-      abrirWhatsApp(customMsg);
-    });
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const customMsg = btn.getAttribute('data-wa-mensaje') || 
+          '👋 Hola, JC Academic. Me gustaría recibir asesoría académica especializada en Colombia.';
+        abrirWhatsApp(customMsg);
+      });
+    }
   });
 }
 
-/* ── 3. Acordeón Interactivo de FAQs con Accesibilidad WCAG ── */
-function initFaqAcordeon() {
-  const faqItems = document.querySelectorAll('.faq-item');
+/* ── 3. Acordeón Nativo de FAQs (HTML5 <details>) ── */
+function initFaqNative() {
+  const detailsList = document.querySelectorAll('details.faq-native');
+  if (!detailsList.length) return;
 
-  faqItems.forEach(item => {
-    const trigger = item.querySelector('.faq-trigger');
-    const panel = item.querySelector('.faq-panel');
-    if (!trigger || !panel) return;
-
-    trigger.addEventListener('click', () => {
-      const estaAbierto = item.classList.contains('open');
-
-      // Cerrar otros acordeones abiertos para mantener orden
-      faqItems.forEach(otroItem => {
-        if (otroItem !== item) {
-          otroItem.classList.remove('open');
-          const otroTrigger = otroItem.querySelector('.faq-trigger');
-          if (otroTrigger) otroTrigger.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      // Alternar estado del actual
-      if (estaAbierto) {
-        item.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-      } else {
-        item.classList.add('open');
-        trigger.setAttribute('aria-expanded', 'true');
-      }
-    });
-
-    // Accesibilidad por teclado
-    trigger.addEventListener('keydown', (e) => {
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        trigger.click();
+  detailsList.forEach(targetDetail => {
+    targetDetail.addEventListener('toggle', () => {
+      if (targetDetail.open) {
+        detailsList.forEach(otherDetail => {
+          if (otherDetail !== targetDetail && otherDetail.open) {
+            otherDetail.open = false;
+          }
+        });
       }
     });
   });
@@ -270,14 +234,12 @@ function initNavMovil() {
   btnAbrir.addEventListener('click', abrirMenu);
   btnCerrar?.addEventListener('click', cerrarMenu);
 
-  // Cerrar al pulsar Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navOverlay.classList.contains('open')) {
       cerrarMenu();
     }
   });
 
-  // Cerrar al hacer clic en cualquier enlace interno
   navOverlay.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', cerrarMenu);
   });
@@ -298,7 +260,6 @@ function initModalHabeas() {
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    // Foco en el primer elemento interactivo del modal
     const primerElemento = modal.querySelector('button, [href], input, [tabindex]:not([tabindex="-1"])');
     primerElemento?.focus();
   }
@@ -310,19 +271,23 @@ function initModalHabeas() {
     if (ultimoEnfocado) ultimoEnfocado.focus();
   }
 
-  botonesAbrir.forEach(b => b.addEventListener('click', (e) => {
-    e.preventDefault();
-    abrirModal();
-  }));
+  botonesAbrir.forEach(b => {
+    if (b) {
+      b.addEventListener('click', (e) => {
+        e.preventDefault();
+        abrirModal();
+      });
+    }
+  });
 
-  botonesCerrar.forEach(b => b.addEventListener('click', cerrarModal));
+  botonesCerrar.forEach(b => {
+    if (b) b.addEventListener('click', cerrarModal);
+  });
 
-  // Cierre por clic fuera del contenedor
   modal.addEventListener('click', (e) => {
     if (e.target === modal) cerrarModal();
   });
 
-  // Cierre por tecla Escape y trampa de foco
   document.addEventListener('keydown', (e) => {
     if (!modal.classList.contains('open')) return;
 
@@ -367,7 +332,7 @@ function initNavbarScroll() {
   }, { passive: true });
 }
 
-/* ── 7. Revelado de Elementos al Hacer Scroll ── */
+/* ── 7. Revelado Progresivo en Scroll ── */
 function initRevealOnScroll() {
   const elementos = document.querySelectorAll('.reveal-on-scroll');
   if (!elementos.length) return;
@@ -384,18 +349,17 @@ function initRevealOnScroll() {
 
     elementos.forEach(el => observador.observe(el));
   } else {
-    // Respaldo sin soporte de IntersectionObserver
     elementos.forEach(el => el.classList.add('is-visible'));
   }
 }
 
-/* ── Inicialización General del DOM ── */
+/* ── Inicialización Segura del DOM ── */
 document.addEventListener('DOMContentLoaded', () => {
-  initCotizador();
-  initBotonesWhatsApp();
-  initFaqAcordeon();
-  initNavMovil();
-  initModalHabeas();
-  initNavbarScroll();
-  initRevealOnScroll();
+  try { initCotizador(); } catch (err) { console.error('Error initCotizador:', err); }
+  try { initBotonesWhatsApp(); } catch (err) { console.error('Error initBotonesWhatsApp:', err); }
+  try { initFaqNative(); } catch (err) { console.error('Error initFaqNative:', err); }
+  try { initNavMovil(); } catch (err) { console.error('Error initNavMovil:', err); }
+  try { initModalHabeas(); } catch (err) { console.error('Error initModalHabeas:', err); }
+  try { initNavbarScroll(); } catch (err) { console.error('Error initNavbarScroll:', err); }
+  try { initRevealOnScroll(); } catch (err) { console.error('Error initRevealOnScroll:', err); }
 });

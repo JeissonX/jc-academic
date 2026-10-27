@@ -11,68 +11,38 @@ const JC = {
   servicios: [
     {
       id: "tesis",
-      titulo: "Tesis y Proyectos de Grado",
-      resumen: "Acompañamiento metodológico integral para pregrado, maestría y doctorado. Planteamiento del problema, marco teórico, diseño metodológico, trabajo de campo y discusión de resultados.",
+      titulo: "Tesis y Monografías",
+      resumen: "Acompañamiento metodológico integral para pregrado y posgrado. Planteamiento del problema, marco teórico, diseño metodológico, trabajo de campo y discusión de resultados.",
       niveles: ["Pregrado", "Especialización", "Maestría", "Doctorado"],
       formatos: ["APA 7ma", "IEEE", "Vancouver", "Chicago"],
-      plazo_minimo_dias: 10,
+      plazo_minimo_dias: 7,
       icono: "book-open",
       tipoExtension: "paginas"
     },
     {
-      id: "ensayo",
-      titulo: "Ensayos y Monografías Críticas",
-      resumen: "Redacción argumentativa rigurosa con fuentes primarias indexadas en Scopus, SciELO y Redalyc. Coherencia interna, tesis clara y citas bibliográficas sin errores de formato.",
+      id: "ensayos",
+      titulo: "Ensayos e Informes Académicos",
+      resumen: "Redacción argumentativa rigurosa con fuentes indexadas en Scopus, SciELO y Redalyc. Artículos científicos IMRyD y reportes técnicos con citación estricta.",
       niveles: ["Pregrado", "Especialización", "Maestría"],
-      formatos: ["APA 7ma", "MLA", "Chicago"],
+      formatos: ["APA 7ma", "IEEE", "Vancouver", "Chicago"],
       plazo_minimo_dias: 2,
       icono: "document-text",
       tipoExtension: "paginas"
     },
     {
-      id: "articulo",
-      titulo: "Artículos Científicos (IMRyD)",
-      resumen: "Estructuración de artículos para revistas indexadas en Publindex, Scimago o WoS. Adaptación estricta a guías de autor, abstract estructurado y preparación de carta al editor.",
-      niveles: ["Maestría", "Doctorado", "Investigadores"],
-      formatos: ["APA 7ma", "Vancouver", "IEEE"],
-      plazo_minimo_dias: 7,
-      icono: "academic-cap",
-      tipoExtension: "paginas"
-    },
-    {
-      id: "estadistica",
-      titulo: "Análisis Estadístico y Econométrico",
-      resumen: "Tratamiento de datos y modelado con SPSS, R, Python o Stata. Pruebas de normalidad, hipótesis, regresiones lineales/logísticas, ANOVA y redacción analítica de resultados.",
-      niveles: ["Pregrado", "Especialización", "Maestría", "Doctorado"],
-      formatos: ["APA 7ma", "Vancouver"],
-      plazo_minimo_dias: 3,
-      icono: "chart-bar",
-      tipoExtension: "paginas"
-    },
-    {
-      id: "apa",
-      titulo: "Corrección de Estilo y Normas APA / IEEE",
-      resumen: "Auditoría ortotipográfica y aplicación rigurosa de normas de citación. Verificación de referencias cruzadas, sangría francesa, numeración y formato de tablas y figuras.",
-      niveles: ["Pregrado", "Especialización", "Maestría", "Doctorado"],
-      formatos: ["APA 7ma", "IEEE", "Vancouver", "Chicago", "Icontec"],
-      plazo_minimo_dias: 1,
-      icono: "adjustments",
-      tipoExtension: "paginas"
-    },
-    {
-      id: "taller",
-      titulo: "Talleres y Casos de Estudio Complejos",
-      resumen: "Resolución analítica de talleres universitarios avanzados, casos empresariales o jurídicos. Entrega estructurada con sustentación conceptual y memoria de cálculo.",
-      niveles: ["Pregrado", "Especialización"],
+      id: "talleres",
+      titulo: "Talleres y Ejercicios Prácticos",
+      resumen: "Resolución analítica de talleres universitarios avanzados, casos empresariales o jurídicos y análisis estadístico en SPSS, R o Python con memoria de cálculo paso a paso.",
+      niveles: ["Pregrado", "Especialización", "Maestría"],
       formatos: ["Normativa del programa"],
-      plazo_minimo_dias: 2,
+      plazo_minimo_dias: 1,
       icono: "clipboard-check",
       tipoExtension: "ejercicios"
     },
     {
       id: "diapositivas",
-      titulo: "Diapositivas y Defensas de Grado",
-      resumen: "Estructuración de presentaciones ejecutivas para sustentación de tesis o ponencias. Síntesis visual de alto impacto con opción de guion de exposición para el orador.",
+      titulo: "Diapositivas y Sustentaciones",
+      resumen: "Diseño técnico de presentaciones de alto impacto para defensa de grado o ponencias, con síntesis visual clara y opción de guion de exposición para el orador.",
       niveles: ["Pregrado", "Especialización", "Maestría", "Doctorado"],
       formatos: ["PowerPoint", "PDF", "Canva"],
       plazo_minimo_dias: 1,
@@ -102,7 +72,7 @@ const JC = {
       permiteGuion: true
     },
     general: {
-      label: "Extensión o avance estimado (opcional)",
+      label: "Extensión o avance estimado",
       placeholder: "Ej: 15 páginas / 5 ejercicios / 12 láminas",
       unidad: "unidades",
       permiteGuion: false
@@ -117,17 +87,15 @@ const JC = {
   ],
 
   areas: [
-    "Ingeniería y Tecnología (Sistemas, Industrial, Civil, etc.)",
-    "Ciencias de la Salud (Medicina, Enfermería, Odontología)",
+    "Ingeniería y Tecnología (Sistemas, Industrial, Civil)",
+    "Ciencias de la Salud (Medicina, Enfermería)",
     "Derecho y Ciencias Políticas",
     "Administración, Finanzas y Negocios",
     "Ciencias Sociales y Humanidades",
     "Educación y Pedagogía",
-    "Psicología y Salud Mental",
+    "Psicología y Ciencias del Comportamiento",
     "Economía y Contaduría Pública",
-    "Comunicación Social y Periodismo",
-    "Arquitectura, Urbanismo y Diseño",
-    "Ciencias Exactas y Naturales",
+    "Comunicación y Diseño",
     "Otra disciplina académica"
   ],
 
@@ -209,23 +177,18 @@ const JC = {
   proceso: [
     {
       paso: "01",
-      titulo: "Diagnóstico y cronograma en 24 h",
-      descripcion: "Revisamos tu rúbrica institucional, objetivos y requerimientos de tu tutor para estructurar un cronograma de entregas realista antes de confirmar el encargo."
+      titulo: "Diagnóstico y cotización",
+      descripcion: "Analizamos tu rúbrica institucional, objetivos y requerimientos de tu tutor para estructurar un cronograma de entregas realista en minutos."
     },
     {
       paso: "02",
-      titulo: "Asignación de especialista con posgrado",
-      descripcion: "Conectamos tu proyecto con un profesional especializado en tu misma carrera y con experiencia comprobada en las normas exigidas por tu universidad."
+      titulo: "Asignación y avance con Turnitin",
+      descripcion: "Un especialista con posgrado en tu misma disciplina redacta tu documento con citas normadas y reporte oficial de originalidad sin depósito."
     },
     {
       paso: "03",
-      titulo: "Entregas parciales y validación Turnitin",
-      descripcion: "Recibes avances por capítulos o secciones junto con sus respectivos reportes de originalidad para que puedas presentarlos a tu director de tesis."
-    },
-    {
-      paso: "04",
-      titulo: "Ajustes de jurado hasta la sustentación",
-      descripcion: "Incorporamos las observaciones del comité evaluador de manera rápida y precisa hasta que el documento quede listo para radicación o defensa oral."
+      titulo: "Entrega final y 10 días de ajustes",
+      descripcion: "Recibes tu trabajo verificado y dispones de 10 días calendario de revisiones incluidas sin sobrecosto hasta la radicación o sustentación."
     }
   ],
 
@@ -256,23 +219,14 @@ const JC = {
       calificacion: 4.9,
       resultado: "Publicación recomendada",
       texto: "El ensayo requería fuentes primarias indexadas en SciELO y jurisprudencia reciente de la Corte Constitucional con citas en Chicago. La coherencia argumentativa fue impecable y el docente felicitó la solidez bibliográfica del texto."
-    },
-    {
-      iniciales: "A.T.",
-      nombre: "A. Torres",
-      programa: "Doctorado en Salud Pública",
-      institucion: "Universidad de Antioquia",
-      calificacion: 5.0,
-      resultado: "Aceptado en revista Scimago Q2",
-      texto: "Adaptaron mi tesis a formato de artículo científico IMRyD con las pautas exactas de la revista objetivo. La corrección de estilo técnico y la carta de presentación al editor demostraron un dominio académico absoluto."
     }
   ],
 
   faqs: [
     {
       id: "faq-turnitin",
-      pregunta: "¿Cómo verifico que mi trabajo no tiene plagio ni textos generados por IA?",
-      respuesta: "Garantía Dual Anti-Plagio & Cero IA: cada encargo es redactado desde cero por un especialista humano con fuentes académicas arbitradas (Scopus, SciELO, Redalyc). Antes de cada entrega ejecutamos un escaneo en Turnitin institucional sin depósito (para no almacenar el texto en la base de datos) y te enviamos el reporte completo en PDF certificando un índice bajo (< 10%) y redacción original compatible con detectores de IA."
+      pregunta: "¿Cómo garantizan que el trabajo no tenga plagio ni texto generado por IA?",
+      respuesta: "Garantía Dual Anti-Plagio & Cero IA: cada encargo se redacta desde cero por un especialista humano con fuentes académicas arbitradas (Scopus, SciELO, Redalyc). Antes de cada entrega ejecutamos un escaneo en Turnitin institucional sin depósito (para no almacenar el texto en la base de datos) y te enviamos el reporte completo en PDF certificando un índice bajo (< 10%) y redacción original compatible con detectores de IA."
     },
     {
       id: "faq-ajustes",
@@ -288,16 +242,6 @@ const JC = {
       id: "faq-confidencialidad",
       pregunta: "¿Qué nivel de reserva y confidencialidad tienen mis datos?",
       respuesta: "Confidencialidad absoluta. Firmamos acuerdo de reserva. No almacenamos tus datos en plataformas públicas, no reutilizamos textos ni compartimos tu información con terceros. De acuerdo con la Ley 23 de 1982 en Colombia, la totalidad de los derechos patrimoniales se ceden al estudiante."
-    },
-    {
-      id: "faq-normas",
-      pregunta: "¿Trabajan con las directrices específicas de mi universidad?",
-      respuesta: "Sí. Solicitamos la guía metodológica o plantilla de tu facultad. Aplicamos rigurosamente normas APA 7ma edición, IEEE, Vancouver, Chicago, MLA o manuales institucionales propios (márgenes, sangrías, rotulación de figuras, tablas y referencias cruzadas)."
-    },
-    {
-      id: "faq-plazos",
-      pregunta: "¿Con cuánto tiempo de anticipación debo solicitar la asesoría?",
-      respuesta: "Para ensayos o talleres cortos podemos atender entregas de urgencia en 24 a 48 horas. Para tesis completas o proyectos de grado recomendamos iniciar con al menos 15 a 20 días de anticipación para garantizar revisiones pausadas y lectura con tu asesor."
     }
   ],
 
